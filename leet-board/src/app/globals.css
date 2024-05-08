@@ -68,7 +68,7 @@
 
   @layer base {
     * {
-      @apply border-border;
+      @apply border-border transition-colors;
     }
     body {
       @apply bg-background text-foreground;
