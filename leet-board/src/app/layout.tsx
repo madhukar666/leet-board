@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { SiteHeader } from "@/components/header"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -18,6 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+      {/*Site header same for every page*/}
+      <SiteHeader></SiteHeader>
+        {/*Same theme for the whole site*/}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
