@@ -20,8 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <SiteHeader></SiteHeader>
+
       <body className={inter.className}>
+      <SiteHeader></SiteHeader>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
