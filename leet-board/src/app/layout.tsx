@@ -22,13 +22,13 @@ export default function RootLayout({
     <html lang="en">
 
       <body className={inter.className}>
-      <SiteHeader></SiteHeader>
+      
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-        >
+        ><SiteHeader></SiteHeader>
           {children}
         </ThemeProvider>
       </body>
