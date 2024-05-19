@@ -24,17 +24,17 @@ const formSchema = z.object({
 
 export function ProblemForm() {
   // ...
-const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
     },
   })
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values)
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -43,12 +43,12 @@ const form = useForm<z.infer<typeof formSchema>>({
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Problem ID</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Problem ID" {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name.
+                Enter the ID of the problem as stated in LeetCode
               </FormDescription>
               <FormMessage />
             </FormItem>

@@ -10,8 +10,7 @@ export const siteConfig = {
     },
   ],
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/madhukar666/leet-board",
-    docs: "https://ui.shadcn.com",
+    github: "https://github.com/madhukar666",
+    githubRepo: "https://github.com/madhukar666/leet-board"
   },
 }
