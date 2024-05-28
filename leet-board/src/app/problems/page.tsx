@@ -1,3 +1,5 @@
+"use client"
+
 import { ProblemForm } from "@/components/custom/lc-form"
 
 export default function ProblemCard() {
