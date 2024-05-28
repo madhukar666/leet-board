@@ -24,7 +24,7 @@ const formSchema = z.object({
       let id = parseInt(val, 10)
       return !isNaN(id) && id > 0
     },
-    { message: "Enter a valid id" }
+    { message: "Enter a valid id(Problem id should be numeric)" }
   ),
 })
 

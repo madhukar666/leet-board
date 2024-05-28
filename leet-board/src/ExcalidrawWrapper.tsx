@@ -1,7 +1,7 @@
 "use client"
 import { Excalidraw, convertToExcalidrawElements } from "@excalidraw/excalidraw"
 
-import "@excalidraw/excalidraw/index.css"
+// import "@excalidraw/excalidraw/index.css"
 
 const ExcalidrawWrapper: React.FC = () => {
   // @ts-ignore
