@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic"
+import {WelcomeScreen} from "@excalidraw/excalidraw";
 
 // Since client components get pre-rendered on server as well, import
 // the Excalidraw stuff dynamically with ssr false
@@ -18,13 +19,11 @@ export default function WhiteBoard({
   }
 }) {
   return (
-    <div className="h-full flex flex-col">
-      <h1 className="p-4 bg-gray-800 text-white">
-        WhiteBoard for the problem id : {params.problem_id}
-      </h1>
-      <div className="flex-grow">
-        <ExcalidrawWrapper />
-      </div>
+    <div className={"z-100"}>
+        <div className={"w-full"} style={{height : "90.5vh"}}>
+      <ExcalidrawWrapper identifier={""}/>
+
+            </div>
     </div>
   )
 }
