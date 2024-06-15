@@ -37,14 +37,14 @@ export default function WhiteBoard() {
       const deltaX = event.clientX - initialX;
       const newWidth = initialWidth + deltaX;
 
-      // Set new width with minimum and maximum constraints
+      
       if (newWidth > 200 && newWidth < window.innerWidth - 200) {
         setSideWidth(newWidth);
         setBoardWidth(window.innerWidth - newWidth - 20); // Adjust board width
       }
     };
 
-    // Cleanup mouse event listeners
+
     const mouseUpHandler = () => {
       document.removeEventListener('mousemove', mouseMoveHandler);
       document.removeEventListener('mouseup', mouseUpHandler);
@@ -74,7 +74,7 @@ export default function WhiteBoard() {
           isVerticalLayout ? 'flex-col' : 'lg:flex-row'
         } items-center justify-center w-full bg-neutral-100 dark:bg-neutral-900 shadow-xl rounded-lg overflow-hidden`}
         style={{
-          height: isVerticalLayout ? 'auto' : '735px',
+          height: isVerticalLayout ? 'max-content' : '735px',
         }}
       >
         {/* Problem Statement Section */}

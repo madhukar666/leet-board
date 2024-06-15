@@ -1,59 +1,78 @@
-import * as React from "react"
-import Link from "next/link"
-import { NavItem } from "@/types/nav"
-import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import Link from "next/link";
+import { NavItem } from "@/types/nav";
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
-import logo1 from "../../public/logo1.png"
+import logo1 from "../../public/logo1.png";
+
 interface MainNavProps {
-  items?: NavItem[]
+  items?: NavItem[];
 }
 
-
 export function MainNav({ items }: MainNavProps) {
-
   return (
-    <div className="flex gap-6 bg-opacity-65 md:gap-10">
-        <div className="flex flex-col md:flex-row md:gap-1">
-        <Image src={logo1} alt = {"leetbrd"} style = {{height:"100px",width:"100px"}}/>
-      <Link href="/" className="flex items-center space-x-2">
-        <span className="inline-block font-bold">{siteConfig.name}</span>
-      </Link>
-            </div>
+    <div className="flex flex-row items-center gap-6 p-4 bg-opacity-65 md:gap-10">
+      {/* Logo and Site Name */}
+      <div className="flex items-center gap-4">
+        <Image
+          src={logo1}
+          alt="leetbrd"
+          width={40}
+          height={40}
+          className="object-contain"
+        />
+        <Link href="/" className="hidden sm:flex items-center space-x-2">
+          <span className="text-xl font-bold">{siteConfig.name}</span>
+        </Link>
+      </div>
+
+      {/* Navigation Links */}
       {items?.length ? (
         <nav className="flex gap-6">
-          {items?.map(
-            (item, index) =>
-              item.href && (
-                <Link
-                  key={index}
-                  href={'/problems'}
-                  className={cn(
-                    "flex items-center text-sm font-medium "
-                  )}
+          {items.map((item, index) => (
+            item.href && (
+              <Link
+                key={index}
+                href={item.href}
+                className={cn("text-sm font-medium hover:text-blue-500 transition-colors")}
+              >
+                {item.title}
+              </Link>
+            )
+          ))}
+      {items?.map(
+        (item, index) =>
+          item.href && (
+            <Link
+              key={index}
+              href={'/problems'}
+              className={cn(
+                "text-sm font-medium  hover:text-blue-500 transition-colors"
+              )}
 
-                >
-                  {"Problems"}
-                </Link>
-              )
-          )}
-            {items?.map(
-            (item, index) =>
-              item.href && (
-                <Link
-                  key={index}
-                  href={'/whiteboards'}
-                  className={cn(
-                    "flex items-center text-sm font-medium "
-                  )}
+            >
+              {"Problems"}
+            </Link>
+          )
+      )}
+        {items?.map(
+        (item, index) =>
+          item.href && (
+            <Link
+              key={index}
+              href={'/whiteboards'}
+              className={cn(
+                "text-sm font-medium  hover:text-blue-500 transition-colors"
+              )}
 
-                >
-                  {"WhiteBoards"}
-                </Link>
-              )
-          )}
+            >
+              {"WhiteBoards"}
+            </Link>
+          )
+      )}
         </nav>
       ) : null}
     </div>
-  )
+  );
 }
