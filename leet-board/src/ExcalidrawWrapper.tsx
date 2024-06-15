@@ -4,7 +4,7 @@ import {WelcomeScreen} from "@excalidraw/excalidraw";
 import {ExcalidrawElement, Theme} from "@excalidraw/excalidraw/types/element/types";
 import {AppState, BinaryFiles} from "@excalidraw/excalidraw/types/types";
 import Image from "next/image";
-import leetbrd from "../public/leetbrd.png"
+import leetbrd from "../public/LeetbrdLogo.png"
 
 // import "@excalidraw/excalidraw/index.css"
 interface ExcalidrawWrapperProps {
