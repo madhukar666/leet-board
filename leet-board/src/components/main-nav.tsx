@@ -4,19 +4,18 @@ import { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import Image from "next/image";
-
-import logo from "../../public/logo.png"
-
+import logo1 from "../../public/logo1.png"
 interface MainNavProps {
   items?: NavItem[]
 }
 
+
 export function MainNav({ items }: MainNavProps) {
 
   return (
-    <div className="flex gap-6 md:gap-10">
+    <div className="flex gap-6 bg-opacity-65 md:gap-10">
         <div className="flex flex-col md:flex-row md:gap-1">
-        <Link href="/"><Image className={"w-16"} src={logo} alt={"logo"}/></Link>
+        <Image src={logo1} alt = {"leetbrd"} style = {{height:"100px",width:"100px"}}/>
       <Link href="/" className="flex items-center space-x-2">
         <span className="inline-block font-bold">{siteConfig.name}</span>
       </Link>
