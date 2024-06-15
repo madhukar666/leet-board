@@ -29,7 +29,7 @@ export default function WhiteBoard() {
 
     // Get initial width of the sidebar
     // @ts-ignore
-      const sbWidth = window.getComputedStyle(sideBarRef.current).width;
+    const sbWidth = window.getComputedStyle(sideBarRef.current).width;
     const initialWidth = parseInt(sbWidth, 10);
 
     // Handler for mouse movement
@@ -64,28 +64,41 @@ export default function WhiteBoard() {
     return () => window.removeEventListener('resize', handleResize);
   }, [sideWidth]);
 
+  // Determine if the layout should be stacked vertically based on screen width
+  const isVerticalLayout = window.innerWidth <= 768; // Example breakpoint for responsiveness
 
-    return (
-    <div className="m-4 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg min-h-screen">
-      <div className="flex flex-row h-lvh items-center justify-center w-full bg-neutral-100 dark:bg-neutral-900 shadow-xl rounded-lg overflow-hidden" style={{ height: "645px" }}>
+  return (
+    <div className="m-2 pb-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg h-screen">
+      <div
+        className={`flex ${
+          isVerticalLayout ? 'flex-col' : 'lg:flex-row'
+        } items-center justify-center w-full bg-neutral-100 dark:bg-neutral-900 shadow-xl rounded-lg overflow-hidden`}
+        style={{
+          height: isVerticalLayout ? 'auto' : '735px',
+        }}
+      >
         {/* Problem Statement Section */}
         <div
-          className="flex flex-col justify-center h-full items-start p-4 bg-white dark:bg-black rounded-l"
+          className={`flex ${
+            isVerticalLayout ? 'w-full' : 'lg:w-auto'
+          } justify-center h-full items-start p-4 bg-white dark:bg-black rounded-l`}
           ref={sideBarRef}
-          style={{ width: `${sideWidth}px` }}
+          style={{ width: isVerticalLayout ? '100%' : `${sideWidth}px` }}
         >
           <p className="text-gray-800 dark:text-white">ProblemStatement here</p>
         </div>
 
-        {/* Resizable Divider */}
-        <div
-    className="bg-gray-300 min-h-full hover:bg-slate-400"
-    style={{width: "4px", cursor: "ew-resize"}}
-    onMouseDown={customMouseHandler}
-        ></div>
 
-        {/* Excalidraw Wrapper Section */}
-        <div className="flex-grow h-full">
+        {!isVerticalLayout && (
+          <div
+            className="bg-gray-300 min-h-full hover:bg-slate-400"
+            style={{ width: "4px", cursor: "ew-resize" }}
+            onMouseDown={customMouseHandler}
+          ></div>
+        )}
+
+
+        <div className={`flex-grow h-full ${isVerticalLayout ? 'w-full' : ''}`}>
           <ExcalidrawWrapper theme={theme as Theme} />
         </div>
       </div>
