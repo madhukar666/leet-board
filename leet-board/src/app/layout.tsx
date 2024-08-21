@@ -5,7 +5,6 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/header"
 import { SiteFooter } from "@/components/footer"
-import {useTheme} from "next-themes";
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
@@ -20,9 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head><link rel="icon" href="/leet-board/public/favicon.ico" sizes="any" /></Head>
+      <Head><link rel="icon" href="/leet-board/public/favicon.ico" sizes="google" style={{ width: "20px", height: "20px" }} /></Head>
       <body className={"bg-neutral-100 dark:bg-neutral-900"}>
-      <meta name = "viewport" content={"width=device-width, initial-scale=1.0"}/>
+        <meta name="viewport" content={"width=device-width, initial-scale=1.0"} />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

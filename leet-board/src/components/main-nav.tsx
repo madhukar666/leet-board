@@ -18,9 +18,8 @@ export function MainNav({ items }: MainNavProps) {
         <Image
           src={logo1}
           alt="leetbrd"
-          width={40}
-          height={40}
-          className="object-contain"
+
+          className={"h-fit lg:w-20 sm:w-4"}
         />
         <Link href="/" className="hidden sm:flex items-center space-x-2">
           <span className="text-xl font-bold">{siteConfig.name}</span>

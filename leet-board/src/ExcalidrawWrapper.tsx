@@ -1,18 +1,18 @@
 "use client"
-import {Excalidraw, getSceneVersion, serializeAsJSON} from "@excalidraw/excalidraw"
-import {WelcomeScreen} from "@excalidraw/excalidraw";
-import {ExcalidrawElement, Theme} from "@excalidraw/excalidraw/types/element/types";
-import {AppState, BinaryFiles} from "@excalidraw/excalidraw/types/types";
+import { Excalidraw, getSceneVersion, serializeAsJSON } from "@excalidraw/excalidraw"
+import { WelcomeScreen } from "@excalidraw/excalidraw";
+import { ExcalidrawElement, Theme } from "@excalidraw/excalidraw/types/element/types";
+import { AppState, BinaryFiles } from "@excalidraw/excalidraw/types/types";
 import Image from "next/image";
 import leetbrd from "../public/LeetbrdLogo.png"
 
 // import "@excalidraw/excalidraw/index.css"
 interface ExcalidrawWrapperProps {
-    theme:Theme | undefined
+    theme: Theme | undefined
 }
 
 
-const ExcalidrawWrapper: React.FC<ExcalidrawWrapperProps> = ( {theme}) => {
+const ExcalidrawWrapper: React.FC<ExcalidrawWrapperProps> = ({ theme }) => {
 
     let prevVersion = -1;
 
@@ -36,12 +36,12 @@ const ExcalidrawWrapper: React.FC<ExcalidrawWrapperProps> = ( {theme}) => {
         return null;
     }
     return (
-        <div style={{width: '100%', height: '100%'}}>
-            <Excalidraw onChange={handleChange} theme = {theme} initialData={renderInitial()}>
+        <div style={{ width: '100%', height: '100%' }}>
+            <Excalidraw onChange={handleChange} theme={theme} initialData={renderInitial()}>
                 <WelcomeScreen>
                     <WelcomeScreen.Center>
                         <WelcomeScreen.Center.Logo>
-                            <Image src={leetbrd} alt={"logo1"} style={{width:"200px"}}/>
+                            <Image src={leetbrd} alt={"logo1"} style={{ width: "200px" }} />
                         </WelcomeScreen.Center.Logo>
                         <WelcomeScreen.Center.Heading>
                             Brainstorm your ideas here
