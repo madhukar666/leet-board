@@ -9,7 +9,7 @@ type ConnectionObject = {
 
 const connection:ConnectionObject = {}
 
-const connect = async ()=>{
+const  connect = async ()=>{
 
     if(connection.isConnected){
 
@@ -17,13 +17,15 @@ const connect = async ()=>{
         return
     }
     try{
-        const db = await mongoose.connect(process.env.MONGODB_URI | "",{});
+        const db = await mongoose.connect(process.env.MONGODB_URI as any | "",{});
 
         connection.isConnected = db.connections[0].readyState
 
-        console.log("Database connection gained succesfully")
+        console.log("Database connection gained successfully")
     }
     catch(error){
             console.log(`Database connection err:${error}`)
     }
 }
+export default connect;
+

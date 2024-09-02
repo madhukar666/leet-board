@@ -1,16 +1,10 @@
 
 "use client";
 import React from "react";
-import Image from "next/image";
-import logo1 from "../../../public/logo1.png";
 import {Label} from "@/components/ui/outputs"
 import { Input } from "@/components/ui/inputs";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-} from "@tabler/icons-react";
 
 
 export default function SignupForm() {
