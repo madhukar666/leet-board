@@ -25,53 +25,6 @@ export function MainNav({ items }: MainNavProps) {
           <span className="text-xl font-bold">{siteConfig.name}</span>
         </Link>
       </div>
-
-      {/* Navigation Links */}
-      {items?.length ? (
-        <nav className="flex gap-6">
-          {items.map((item, index) => (
-            item.href && (
-              <Link
-                key={index}
-                href={item.href}
-                className={cn("text-sm font-medium hover:text-blue-500 transition-colors")}
-              >
-                {item.title}
-              </Link>
-            )
-          ))}
-      {items?.map(
-        (item, index) =>
-          item.href && (
-            <Link
-              key={index}
-              href={'/problems'}
-              className={cn(
-                "text-sm font-medium  hover:text-blue-500 transition-colors"
-              )}
-
-            >
-              {"Problems"}
-            </Link>
-          )
-      )}
-        {items?.map(
-        (item, index) =>
-          item.href && (
-            <Link
-              key={index}
-              href={'/whiteboards'}
-              className={cn(
-                "text-sm font-medium  hover:text-blue-500 transition-colors"
-              )}
-
-            >
-              {"WhiteBoards"}
-            </Link>
-          )
-      )}
-        </nav>
-      ) : null}
     </div>
   );
 }
