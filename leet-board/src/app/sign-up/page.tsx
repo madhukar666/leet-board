@@ -1,93 +1,123 @@
-
-"use client";
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import Image from "next/image";
 import logo1 from "../../../public/logo1.png";
-import {Label} from "@/components/ui/outputs"
+import { Label } from "@/components/ui/outputs";
 import { Input } from "@/components/ui/inputs";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-} from "@tabler/icons-react";
-
+import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);  // Loading state
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    setError("");
+    if (!form.firstName || !form.lastName || !form.email || !form.password) {
+      setError("Please fill all the details");
+      return;
+    }
+
+    setLoading(true);  // Set loading to true
+
+    try {
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        router.push("/setup-profile");
+      } else {
+        setError(data.error || "An error occurred");
+      }
+    } catch (error) {
+      setError("An unexpected error occurred. Please try again later.");
+    } finally {
+      setLoading(false);  // Set loading to false after the request is completed
+    }
   };
+
   return (
-      <div className="flex min-h-screen flex-col items-center justify-center">
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-        <div className = "flex flex-row items-center justify-center">
-         <Image src={logo1} alt="Brand logo" className="h-fit sm:hidden lg:block lg:w-16 lg:shrink-0" />
+    <div className="flex min-h-screen flex-col items-center justify-center">
+      <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+        <div className="flex flex-row items-center justify-center">
+          <Image src={logo1} alt="Brand logo" className="h-fit sm:hidden lg:block lg:w-16 lg:shrink-0" />
           <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Welcome to LeetBoard
-      </h2></div>
-      {/*<div className= "flex flex-col items-start justify-center">*/}
-      {/*<p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">*/}
-      {/*  Login to save your boards*/}
-      {/*</p>*/}
-      {/*</div>*/}
-      <form className="my-8" onSubmit={handleSubmit}>
-        {/*  <div className="flex flex-col space-y-4">*/}
-        {/*  <button*/}
-        {/*    className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"*/}
-        {/*    type="submit"*/}
-        {/*  >*/}
-        {/*    <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />*/}
-        {/*    <span className="text-neutral-700 dark:text-neutral-300 text-sm">*/}
-        {/*      GitHub*/}
-        {/*    </span>*/}
-        {/*    <BottomGradient />*/}
-        {/*  </button>*/}
-        {/*  <button*/}
-        {/*    className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"*/}
-        {/*    type="submit"*/}
-        {/*  >*/}
-        {/*    <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />*/}
-        {/*    <span className="text-neutral-700 dark:text-neutral-300 text-sm">*/}
-        {/*      Google*/}
-        {/*    </span>*/}
-        {/*    <BottomGradient />*/}
-        {/*  </button>*/}
-        {/*</div>*/}
-          <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="" type="text" />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="" type="text" />
-          </LabelInputContainer>
+            Welcome to LeetBoard
+          </h2>
         </div>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="example@domain.com" type="email" />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
-        </LabelInputContainer>
-
-        <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
-        >
-          Sign up &rarr;
-          <BottomGradient />
-        </button>
-      </form>
-      <p
-
-      >Already have an account?<Link href = "login" className="hover:underline">Login here</Link></p>
-    </div>
-
+        <form className="my-8" onSubmit={handleSubmit}>
+          <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
+            <LabelInputContainer>
+              <Label htmlFor="firstname">First name</Label>
+              <Input
+                id="firstname"
+                placeholder=""
+                type="text"
+                onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+              />
+            </LabelInputContainer>
+            <LabelInputContainer>
+              <Label htmlFor="lastname">Last name</Label>
+              <Input
+                id="lastname"
+                placeholder=""
+                type="text"
+                onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+              />
+            </LabelInputContainer>
+          </div>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="email">Email Address</Label>
+            <Input
+              id="email"
+              placeholder="example@domain.com"
+              type="email"
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+            />
+          </LabelInputContainer>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              placeholder="••••••••"
+              type="password"
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+            />
+          </LabelInputContainer>
+          <button
+            className={`bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Signing up..." : "Sign up"} &rarr;
+            <BottomGradient />
+          </button>
+          {error && (
+            <div>
+              <h2 className="text-red-600 font-bold">{error}</h2>
+            </div>
+          )}
+        </form>
+        <p>
+          Already have an account? <Link href="login" className="hover:underline">Login here</Link>
+        </p>
       </div>
+    </div>
   );
 }
 
@@ -99,13 +129,8 @@ const BottomGradient = () => {
     </>
   );
 };
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+
+const LabelInputContainer = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
     <div className={cn("flex flex-col space-y-2 w-full", className)}>
       {children}

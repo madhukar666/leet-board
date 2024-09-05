@@ -9,6 +9,7 @@ type ConnectionObject = {
 
 const connection:ConnectionObject = {}
 
+
 const  connect = async ()=>{
 
     if(connection.isConnected){
@@ -17,7 +18,8 @@ const  connect = async ()=>{
         return
     }
     try{
-        const db = await mongoose.connect(process.env.MONGODB_URI as any | "",{});
+        const db = await mongoose.connect(process.env.MONGO_URI! || "",{
+        });
 
         connection.isConnected = db.connections[0].readyState
 
