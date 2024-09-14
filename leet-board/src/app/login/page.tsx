@@ -1,5 +1,4 @@
-
-"use client";
+"use client"
 import React, { FormEvent, useState } from "react";
 import { Label } from "@/components/ui/outputs";
 import { Input } from "@/components/ui/inputs";
@@ -7,7 +6,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function SignupForm() {
+export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
@@ -15,33 +14,41 @@ export default function SignupForm() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError("");
 
-    const response = await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await response.json();
-
-    if (response.status == 200){
-      router.push(`/profile/${data.username}`);
-    } else {
-      setError(data.message || "Login failed. Please check your credentials.");
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        // Successful login
+        localStorage.setItem("user",JSON.stringify(data.user));
+        router.push(`/profile/${data.user.username}`); // Redirect to dashboard or appropriate page
+      } else {
+        // Login failed
+        setError(data.error || "Login failed. Please check your credentials.");
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
     }
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-        <div className="flex flex-col items-center font-bold justify-center">
-          <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-            Login to save your boards
+    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800 sm:p-8">
+        <div className="mb-6 text-center">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Login</h2>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+            Login to access your account
           </p>
         </div>
-        <form className="my-8" onSubmit={handleSubmit}>
-          <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-          <LabelInputContainer className="mb-4">
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <LabelInputContainer>
             <Label htmlFor="email">Email Address</Label>
             <Input
               id="email"
@@ -51,9 +58,10 @@ export default function SignupForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="w-full"
             />
           </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
+          <LabelInputContainer>
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
@@ -63,38 +71,31 @@ export default function SignupForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="w-full"
             />
           </LabelInputContainer>
           <button
-            className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+            className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             type="submit"
           >
-            Log In &rarr;
-            <BottomGradient />
+            Log In
           </button>
         </form>
-        <p>
+        <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-300">
           New user?{" "}
-          <Link href="/sign-up" className="hover:underline">
+          <Link href="/sign-up" className="font-medium text-blue-600 hover:underline dark:text-blue-400">
             Sign up
           </Link>
         </p>
       </div>
       {error && (
-        <div className="mt-4">
-          <h2 className="text-red-600 font-bold">{error}</h2>
+        <div className="mt-4 text-center">
+          <p className="text-sm font-medium text-red-600">{error}</p>
         </div>
       )}
     </div>
   );
 }
-
-const BottomGradient = () => (
-  <>
-    <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-    <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-  </>
-);
 
 const LabelInputContainer = ({
   children,
@@ -103,7 +104,7 @@ const LabelInputContainer = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <div className={cn("flex flex-col space-y-2 w-full", className)}>
+  <div className={cn("space-y-2", className)}>
     {children}
   </div>
 );

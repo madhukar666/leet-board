@@ -20,6 +20,7 @@
     "@tabler/icons-react": "^3.12.0",
     "axios": "^1.7.4",
     "bcryptjs": "^2.4.3",
+    "cheerio": "^1.0.0",
     "chrome-aws-lambda": "^10.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -31,6 +32,8 @@
     "next": "^14.2.5",
     "next-auth": "^5.0.0-beta.20",
     "next-themes": "^0.3.0",
+    "node-cache": "^5.1.2",
+    "playwright": "^1.47.0",
     "playwright-core": "^1.44.1",
     "puppeteer": "^22.11.0",
     "react": "^18.3.1",
@@ -38,6 +41,7 @@
     "react-hook-form": "^7.51.4",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "user-agents": "^1.1.322",
     "zod": "^3.23.8"
   },
   "devDependencies": {

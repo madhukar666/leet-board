@@ -2,6 +2,7 @@
 
 // import type {NextApiResponse,NextApiRequest} from "next";
 import mongoose from "mongoose"
+import boardSchema from "@/lib/boards";
 
 const userSchema = new mongoose.Schema({
 
@@ -29,10 +30,15 @@ const userSchema = new mongoose.Schema({
             type : mongoose.Schema.Types.String,
             required : true,
     },
+
+    boards : {
+        type : [boardSchema],
+        default : [],
+    }
 });
 
 
 
-const  User = mongoose.models.users || mongoose.model("users",userSchema)
+const User = mongoose.models.users || mongoose.model("users",userSchema)
 
 export default User

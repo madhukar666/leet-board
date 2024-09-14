@@ -4,7 +4,6 @@ import React, { FormEvent, useState,useEffect } from "react";
 import { Label } from "@/components/ui/outputs";
 import { Input } from "@/components/ui/inputs";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function ProfileSetUp() {
@@ -14,22 +13,27 @@ export default function ProfileSetUp() {
 
   const [error, setError] = useState("");
   const [username,setUserName] = useState("");
+
+  console.log(localStorage.getItem("user"));
+  if(localStorage.getItem("user")!=undefined) {
+    // @ts-ignore
+    var email = JSON.parse(localStorage.getItem("user")).email;
+  }
   // @ts-ignore
-    const email = JSON.parse(localStorage.getItem("user")).email
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(username == ""){
         setError("Please choose any username")
         return;
     }
-    const response = await fetch("/api/login", {
+    const response = await fetch("/api/setupprofile", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({email,username}),
+      body: JSON.stringify({email : email,username : username}),
     });
 
     const data = await response.json();
-
+    console.log(data);
     if (response.status == 200) {
       router.push(`/profile/${data.username}`);
     } else {

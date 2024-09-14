@@ -17,6 +17,19 @@
   }
 }
 
+@layer components {
+  .problem-description {
+    @apply text-base leading-relaxed;
+  }
+
+  .inline-code {
+    @apply font-mono text-math font-math px-1 py-0.5 rounded bg-code-bg-light dark:bg-code-bg-dark text-code-text-light dark:text-code-text-dark;
+  }
+
+  .block-equation {
+    @apply font-mono text-math font-math p-2 rounded bg-code-bg-light dark:bg-code-bg-dark text-code-text-light dark:text-code-text-dark my-2 overflow-x-auto;
+  }
+}
 
 @layer base {
   :root {
@@ -63,5 +76,7 @@
     --input: 240 3.7% 15.9%;
     --ring: 142.4 71.8% 29.2%;
   }
+
+
 }
 

@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 export default function SignupForm() {
   const router = useRouter();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);  // Loading state
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -27,7 +27,7 @@ export default function SignupForm() {
       return;
     }
 
-    setLoading(true);  // Set loading to true
+    setLoading(true);
 
     try {
       const res = await fetch("/api/signup", {
@@ -37,8 +37,9 @@ export default function SignupForm() {
       });
 
       const data = await res.json();
-
+      console.log(data);
       if (res.ok) {
+        localStorage.setItem("user",JSON.stringify(data.user));
         router.push("/setup-profile");
       } else {
         setError(data.error || "An error occurred");
@@ -46,12 +47,12 @@ export default function SignupForm() {
     } catch (error) {
       setError("An unexpected error occurred. Please try again later.");
     } finally {
-      setLoading(false);  // Set loading to false after the request is completed
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
+      <div className="flex min-h-screen flex-col items-center justify-center">
       <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
         <div className="flex flex-row items-center justify-center">
           <Image src={logo1} alt="Brand logo" className="h-fit sm:hidden lg:block lg:w-16 lg:shrink-0" />
@@ -120,7 +121,6 @@ export default function SignupForm() {
     </div>
   );
 }
-
 const BottomGradient = () => {
   return (
     <>

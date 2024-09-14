@@ -23,7 +23,7 @@ const ExcalidrawWrapper: React.FC<ExcalidrawWrapperProps> = ({ theme }) => {
     ) => {
 
         let currentVersion = getSceneVersion(elements);
-        if (currentVersion > prevVersion) {
+        if (currentVersion > prevVersion){
             localStorage.setItem("currentVersion", serializeAsJSON(elements, appState, files, "local"));
             prevVersion = currentVersion;
         }

@@ -21,6 +21,20 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+      'math': '1rem',
+    },
+    backgroundColor: {
+      'code-bg-light': '#f3f4f6',
+      'code-bg-dark': '#1f2937',
+    },
+    textColor: {
+      'code-text-light': '#1f2937',
+      'code-text-dark': '#f3f4f6',
+    },
+    fontWeight: {
+      'math': '500',
+    },
       boxShadow: {
         input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`,
       },
