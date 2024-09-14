@@ -10,15 +10,15 @@ export default function ProfileSetUp() {
 
   const router = useRouter();
 
-
+  const [user,setUser] = useState({
+      email : "",
+  })
   const [error, setError] = useState("");
   const [username,setUserName] = useState("");
-
-  console.log(localStorage.getItem("user"));
-  if(localStorage.getItem("user")!=undefined) {
-    // @ts-ignore
-    var email = JSON.parse(localStorage.getItem("user")).email;
-  }
+  useEffect(()=> {
+      setUser(JSON.parse(localStorage.getItem("user") as string));
+  },[])
+    var email = user.email;
   // @ts-ignore
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
