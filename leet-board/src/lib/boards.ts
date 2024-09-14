@@ -7,7 +7,10 @@ const boardSchema = new mongoose.Schema({
     problem_id : {
         type : mongoose.Schema.Types.Number,
         required : true,
-        unique : true,
+    },
+    problem_title : {
+        type : mongoose.Schema.Types.String,
+        required : true
     },
     version:{
         type:mongoose.Schema.Types.String,

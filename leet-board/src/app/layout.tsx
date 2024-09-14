@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/header"
 import { SiteFooter } from "@/components/footer"
 import React from "react";
+import {Toaster} from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
         >
           <SiteHeader></SiteHeader>
           {children}
+          <Toaster/>
           <SiteFooter></SiteFooter>
         </ThemeProvider>
       </body>

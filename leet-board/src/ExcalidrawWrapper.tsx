@@ -1,5 +1,6 @@
 "use client"
 import { Excalidraw, getSceneVersion, serializeAsJSON } from "@excalidraw/excalidraw"
+import {useEffect} from "react";
 import { WelcomeScreen } from "@excalidraw/excalidraw";
 import { ExcalidrawElement, Theme } from "@excalidraw/excalidraw/types/element/types";
 import { AppState, BinaryFiles } from "@excalidraw/excalidraw/types/types";
