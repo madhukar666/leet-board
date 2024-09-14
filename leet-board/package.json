@@ -27,6 +27,7 @@
     "cors": "^2.8.5",
     "framer-motion": "^11.3.28",
     "html-to-jsx-transform": "^1.1.0",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.378.0",
     "mongoose": "^8.5.4",
     "next": "^14.2.5",
