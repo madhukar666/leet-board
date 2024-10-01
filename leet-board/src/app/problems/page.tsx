@@ -35,6 +35,11 @@ interface BoardItem {
   problem_title: string;
   lastModified: string;
 }
+interface ButtomCustomProps{
+  text : string,
+  variant : "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined,
+  onClick : object
+};
 
 interface DrawerForDropDownProps {
   title: string;
@@ -164,6 +169,7 @@ export default function ProblemCard() {
           />
 
           {filteredBoards.map((board) => (
+              //@ts-ignore
             <ListItem
               key={board.problem_id}
               {...board}
@@ -183,10 +189,12 @@ export default function ProblemCard() {
   );
 }
 
-export function ButtonCustom({ text, variant, onClick }) {
+const  ButtonCustom : React.FC<ButtomCustomProps>= ({ text, variant, onClick })=>{
+
   return (
     <Button
       variant={variant}
+      //@ts-ignore
       onClick={onClick}
       className="
         px-6 py-3
@@ -224,7 +232,12 @@ const DrawerForDropDown: React.FC<DrawerForDropDownProps> = ({
             <DrawerDescription>{description}</DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <ButtonCustom variant={variant} onClick={onClick} text={footer} />
+
+            <ButtonCustom
+                //@ts-ignore
+                variant={variant}
+                onClick={onClick}
+                text={footer} />
             <DrawerClose asChild>
               <Button variant="ghost">Cancel</Button>
             </DrawerClose>
