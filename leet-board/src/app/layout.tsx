@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Head from "next/head"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import {Analytics} from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/header"
 import { SiteFooter } from "@/components/footer"
@@ -33,6 +34,7 @@ export default function RootLayout({
           <SiteHeader></SiteHeader>
           {children}
           <Toaster/>
+          <Analytics/>
           <SiteFooter></SiteFooter>
         </ThemeProvider>
       </body>

@@ -43,6 +43,8 @@ export function ProfileDropDown() {
     return null // Or render a login button
   }
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -51,7 +53,9 @@ export function ProfileDropDown() {
           aria-label="Open profile menu"
         >
           <Avatar>
-            <AvatarImage src={img} alt={user.username} />
+            <AvatarImage
+                //@ts-ignore
+                src={img} alt={user.username} />
             <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
           </Avatar>
         </button>
@@ -59,7 +63,9 @@ export function ProfileDropDown() {
       <DropdownMenuContent align="end" className="w-56">
         <div className="flex items-center justify-start gap-2 p-2">
           <Avatar>
-            <AvatarImage src={img} alt={user.username} />
+            <AvatarImage
+                //@ts-ignore
+                src={img} alt={user.username} />
             <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col space-y-1">
