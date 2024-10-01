@@ -79,7 +79,6 @@ export default function WhiteBoard() {
 
     handleResize();
     window.addEventListener("resize", handleResize);
-
       const autoSaveInterval = setInterval(async () => {
         try {
           if(problemData == null)
@@ -92,18 +91,17 @@ export default function WhiteBoard() {
               description: "Your work has been saved.",
               duration: 3000,
             });
-
-        } catch (error) {
+        } catch (error){
+          console.log(error);
           // setError("Check your connection. Can't autosave the work");
           toast({
             title: "Auto-save failed",
             description: "Please check your connection.",
             variant: "destructive",
-            duration: 5000,
+            duration: 3000,
           });
         }
-      }, 3000);
-
+      }, 60000);
 
       return () => {
         window.removeEventListener("resize", handleResize);
@@ -172,45 +170,51 @@ export default function WhiteBoard() {
   };
 
   return (
-    <div className="m-2 pb-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg h-screen text-sm">
-      <div
-        className={`flex ${
-          isVerticalLayout ? "flex-col" : "lg:flex-row"
-        } items-center justify-center w-full bg-neutral-100 dark:bg-neutral-900 shadow-xl rounded-lg overflow-hidden`}
-        style={{ height: isVerticalLayout ? "max-content" : "calc(100vh - 4rem)" }}
-      >
-        <div
-          className={`flex ${
-            isVerticalLayout ? "w-full" : "lg:w-auto"
-          } justify-center h-full items-start p-4 bg-white dark:bg-black rounded-l overflow-y-auto`}
-          ref={sideBarRef}
-          style={{ width: isVerticalLayout ? "100%" : `${sideWidth}px` }}
-        >
-          {renderProblemStatement()}
-        </div>
-
-        {!isVerticalLayout && (
-          <div
-            className="bg-gray-300 min-h-full hover:bg-slate-400 cursor-ew-resize"
-            style={{ width: "4px" }}
-            onMouseDown={customMouseHandler}
-          />
-        )}
-
-        <div className={`flex-grow h-full ${isVerticalLayout ? "w-full" : ""}`}>
-          <ExcalidrawWrapper theme={theme as Theme} />
-        </div>
-      </div>
-
-      <div className="mt-4 flex items-start font-bold text-gray-800 dark:text-white">
-        Note:
-        <span className="ml-1 font-light">
-          Whiteboard used here is{' '}
-          <Link href="https://docs.excalidraw.com/" className="text-blue-500 hover:underline">
-            Excalidraw
-          </Link>
-        </span>
-      </div>
+    <div className="m-2 pb-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg h-fit text-sm">
+  {/* Main container with flex layout */}
+  <div
+    className={`flex ${
+      isVerticalLayout ? "flex-col" : "lg:flex-row"
+    } items-center justify-center w-full bg-neutral-100 dark:bg-neutral-900 shadow-xl rounded-lg overflow-hidden`}
+    style={{ height: isVerticalLayout ? "max-content" : "calc(100vh - 4rem)" }}
+  >
+    {/* Sidebar for problem statement */}
+    <div
+      className={`flex ${
+        isVerticalLayout ? "w-full" : "lg:w-auto"
+      } justify-center h-full items-start p-4 bg-white dark:bg-black rounded-l overflow-y-auto`}
+      ref={sideBarRef}
+      style={{ width: isVerticalLayout ? "100%" : `${sideWidth}px` }}
+    >
+      {renderProblemStatement()}
     </div>
+
+    {/* Resizer only visible in horizontal layout */}
+    {!isVerticalLayout && (
+      <div
+        className="bg-gray-300 min-h-full hover:bg-slate-400 cursor-ew-resize"
+        style={{ width: "4px" }}
+        onMouseDown={customMouseHandler}
+      />
+    )}
+
+    {/* ExcalidrawWrapper with flexible grow */}
+    <div className={`flex-grow h-full ${isVerticalLayout ? "w-full" : ""}`}>
+      <ExcalidrawWrapper theme={theme as Theme} problem_id={problem_id as string} />
+    </div>
+  </div>
+
+  {/* Footer note */}
+  <div className="mt-4 flex items-start font-bold text-gray-800 dark:text-white">
+    Note:
+    <span className="ml-1 font-light">
+      Whiteboard used here is{' '}
+      <Link href="https://docs.excalidraw.com/" className="text-blue-500 hover:underline">
+        Excalidraw
+      </Link>
+    </span>
+  </div>
+</div>
+
   );
 }

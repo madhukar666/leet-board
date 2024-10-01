@@ -4,8 +4,8 @@ import { siteConfig } from "@/config/site";
 import { MainNav } from "@/components/main-nav";
 import { useRouter } from "next/navigation";
 import { ModeToggle } from "@/components/modetoggle";
-import Image from "next/image";
-import userIcon from "../../public/user-circle.svg";
+import {ProfileDropDown} from "@/components/profile-dropdown";
+import Profile from "@/app/profile/[username]/page";
 
 export function SiteHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,17 +35,10 @@ export function SiteHeader() {
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav items={siteConfig.mainNav}/>
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <nav className="flex items-center space-x-1">
-            <ModeToggle />
+          <nav className="flex items-center space-x-1 justify-between">
+            <ModeToggle/>
             {isLoggedIn ? (
-              <Image
-                src={userIcon}
-                alt="User profile"
-                className="rounded-full object-cover w-8 h-8 cursor-pointer"
-                width={32}
-                height={32}
-                onClick={() => router.push(`/profile/${user.username}`)}
-              />
+                  <ProfileDropDown/>
             ) : (
               <button
                 onClick={handleClick}
